@@ -15,16 +15,21 @@ Terraform requires authentication to interact with Google Cloud. You can provide
 Windows (PowerShell or CMD)
 
 Move the Service Account JSON key to a secure location, e.g.:
+
     C:\Users\YourUsername\develop.json
 
 Set the GOOGLE_APPLICATION_CREDENTIALS environment variable:
+
 PowerShell:
+
     $env:GOOGLE_APPLICATION_CREDENTIALS="C:\Users\YourUsername\develop.json"
 
 Command Prompt (CMD):
+
     set GOOGLE_APPLICATION_CREDENTIALS=C:\Users\YourUsername\develop.json
 
 Verify the variable is set correctly:
+
     echo $env:GOOGLE_APPLICATION_CREDENTIALS  # PowerShell
 
     echo %GOOGLE_APPLICATION_CREDENTIALS%  # CMD
@@ -32,12 +37,15 @@ Verify the variable is set correctly:
 macOS/Linux (Bash or Zsh)
 
 Move the Service Account JSON key to a secure location, e.g.:
+
     mv ~/Downloads/develop.json ~/.gcp/develop.json
 
 Set the GOOGLE_APPLICATION_CREDENTIALS environment variable:
+
     export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/develop.json"
 
 To make this setting permanent, add it to ~/.bashrc or ~/.zshrc:
+
     echo 'export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/develop.json"' >> ~/.bashrc  # For Bash
 
     echo 'export GOOGLE_APPLICATION_CREDENTIALS="$HOME/.gcp/develop.json"' >> ~/.zshrc  # For Zsh
