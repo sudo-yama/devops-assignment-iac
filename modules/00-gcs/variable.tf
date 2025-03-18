@@ -1,14 +1,16 @@
 variable "project" {
+  description = "Project id"
   type = string
-  default = "develop-453608"
 }
 
 variable "region" {
+  description = "Region"
   type = string
-  default = "us-central1"
+
 }
 
 variable "gcs-name" {
+  description = "Bucket name"
   type = string
-  default = "000-gcs-terraform-state"
+
 }

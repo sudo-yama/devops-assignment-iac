@@ -6,28 +6,26 @@ terraform {
     }
   }
 }
-
 provider "google" {
   project = var.project
   region = var.region
 }
 
-resource "google_storage_bucket" "terraform-state" {
+data "google_storage_bucket" "existing" {
   name = var.gcs-name
-  location = var.region
+}
+
+resource "google_storage_bucket" "terraform_state" {
+  count        = length(data.google_storage_bucket.existing.name) > 0 ? 0 : 1
+  name         = var.gcs-name
+  location     = var.region
   storage_class = "STANDARD"
 
   versioning {
     enabled = true
   }
-  
-   lifecycle_rule {
-    action {
-      type = "Delete"
-    }
-    condition {
-      age = 0
-    }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }
-
