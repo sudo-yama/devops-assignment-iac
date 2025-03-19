@@ -20,6 +20,15 @@ variable "region" {
 
 variable "project" {
   description = "Project id"
-  type = string
+  type        = string
 }
 
+variable "private_ip_name" {
+  description = "Private IP address"
+  type        = string 
+}
+
+variable "private_ip_prefix_length" {
+  description = "Length subnet "
+  type        = number
+}
