@@ -1,12 +1,12 @@
 terraform {
-  source = "../../../modules/03-gke"
+  source = "../../../modules/05-domain"
 }
 
 remote_state {
   backend = "gcs"
   config = {
     bucket  = "000-gcs-terraform-state"
-    prefix  = "terraform/dev/03-gke"
+    prefix  = "terraform/dev/04-domain"
     location = "us-central1"
     project  = "develop-453608"
   }
@@ -20,9 +20,10 @@ remote_state {
 inputs = {
   project        = "develop-453608"
   region         = "us-central1"
-  env            = "dev"
-  cluster_name   = "gke"
-  node_count     = 2
-  machine_type   = "e2-micro"
-  node_disk_size = 50
+  dns_zone_name  = "i-heng-store-zone"
+  domain_name    = "i-heng.store."
+  a_name         = "i-heng.store."
+  api_name       = "api"
+  argocd_name    = "argocd"
+  monitor_name   = "grafana"
 }
