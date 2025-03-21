@@ -16,8 +16,12 @@ variable "cluster_name" {
   description = "Google Kubernetes cluster name"
 }
 
-variable "node_count" {
-  description = "Node Kubernetes"
+variable "min_node" {
+  description = "Min node Kubernetes"
+}
+
+variable "max_node" {
+  description = "Max node Kubernetes"
 }
 
 variable "machine_type" {

@@ -22,7 +22,8 @@ inputs = {
   region         = "us-central1"
   env            = "dev"
   cluster_name   = "gke"
-  node_count     = 2
+  min_node       = 1
+  max_node       = 3
   machine_type   = "e2-micro"
   node_disk_size = 50
 }

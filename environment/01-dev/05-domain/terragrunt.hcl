@@ -6,7 +6,7 @@ remote_state {
   backend = "gcs"
   config = {
     bucket  = "000-gcs-terraform-state"
-    prefix  = "terraform/dev/04-domain"
+    prefix  = "terraform/dev/05-domain"
     location = "us-central1"
     project  = "develop-453608"
   }

@@ -12,7 +12,7 @@ provider "google" {
   region  = var.region
 }
 
-data "terraform_remote_state" "vpc" {
+data "terraform_remote_state" "helm" {
   backend = "gcs"
 
   config = {
@@ -34,7 +34,7 @@ resource "google_dns_record_set" "a_record" {
   type         = "A"
   ttl          = 300
   managed_zone = google_dns_managed_zone.i_heng_store.name
-  rrdatas      = [data.terraform_remote_state.helm.outputs.ingress_ip_address]
+  rrdatas      = [data.terraform_remote_state.helm.outputs.nginx_ingress_ip]
 }
 
 resource "google_dns_record_set" "api_cname_record" {
