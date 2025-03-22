@@ -1,5 +1,4 @@
 output "dns_zone_name" {
-
   value = google_dns_managed_zone.i_heng_store.name
 }
 
@@ -12,13 +11,13 @@ output "a_record_ip" {
 }
 
 output "api_record" {
-  value = google_dns_record_set.api_cname_record.rrdatas
+value = "${var.api_name}.${join(",", google_dns_record_set.monitor_cname_record.rrdatas)}"
 }
 
 output "argocd_record" {
-  value = google_dns_record_set.argocd_cname_record.rrdatas
+  value = "${var.argocd_name}.${join(",", google_dns_record_set.monitor_cname_record.rrdatas)}"
 }
 
 output "monitor_record" {
-  value = google_dns_record_set.monitor_cname_record.rrdatas
+  value = "${var.monitor_name}.${join(",", google_dns_record_set.monitor_cname_record.rrdatas)}"
 }

@@ -63,6 +63,7 @@ resource "helm_release" "nginx_ingress" {
   repository = "https://kubernetes.github.io/ingress-nginx"
   chart      = "ingress-nginx"
   namespace  = kubernetes_namespace.ingress_namespace.metadata.0.name
+  timeout    = 600
 
   set {
     name  = "controller.ingressClassResource.default"
@@ -88,6 +89,7 @@ resource "helm_release" "argocd" {
   chart      = "argo-cd"
   version    = "6.7.11"
   namespace  = kubernetes_namespace.argocd_namespace.metadata.0.name
+  timeout    = 600
 
   set {
     name  = "server.ingress.enabled"
@@ -107,5 +109,10 @@ resource "helm_release" "argocd" {
   set {
     name  = "server.ingress.annotations.kubernetes\\.io/ingress\\.class"
     value = "nginx"
+  }
+
+  set_list {
+    name  = "server.ingress.hosts"
+    value = ["argocd.i-heng.store"]
   }
 }

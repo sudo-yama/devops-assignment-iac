@@ -3,6 +3,7 @@
 *.tfstate.*
 *.terraform/
 .terraform.lock.hcl
+.terragrunt-cache
 terragrunt-debug.log
 terraform.tfvars
 *.tfvars
