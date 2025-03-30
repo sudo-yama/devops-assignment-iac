@@ -32,7 +32,7 @@ jobs:
         run: |
           curl -sSL https://github.com/gruntwork-io/terragrunt/releases/download/v0.47.2/terragrunt_linux_amd64 -o terragrunt
           chmod +x terragrunt
-          sudo mv terragrunt /usr/local/bin/terragrunt
+          sudo mv terragrunt /usr/local/bin/
 
       - name: Install Google Cloud SDK (gcloud)
         run: |
@@ -46,7 +46,8 @@ jobs:
           terragrunt --version
           which terraform
           terraform --version
-
+          file /usr/local/bin/terragrunt
+          
       - name: Set up GCP authen
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > "${HOME}/gcp-key.json"
