@@ -27,10 +27,11 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.0
+          terraform_wrapper: false
           
       - name: Install Terragrunt
         run: |
-          curl -sSL https://github.com/gruntwork-io/terragrunt/releases/download/v0.47.2/terragrunt_linux_amd64 -o terragrunt
+          curl -sSL https://github.com/gruntwork-io/terragrunt/releases/download/v0.38.1/terragrunt_linux_amd64 -o terragrunt
           chmod +x terragrunt
           sudo mv terragrunt /usr/local/bin/
 
@@ -47,7 +48,7 @@ jobs:
           which terraform
           terraform --version
           file /usr/local/bin/terragrunt
-          
+
       - name: Set up GCP authen
         run: |
           echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > "${HOME}/gcp-key.json"
