@@ -55,55 +55,44 @@ jobs:
           ls -la ${HOME}
           gcloud auth activate-service-account --key-file="${HOME}/gcp-key.json"
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
         
       - name: Apply GCS (Bootstrap)
         run: |
-          ls -la ${HOME}
-          cat ${HOME}/gcp-key.json
           export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
-          cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=00-gcs << EOF
           y
           EOF
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
-      - name: Apply VPC
+      - name: Apply VPC (Virtual Private Cloud)
         run: |
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
           cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=01-vpc
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
-      - name: Apply RDS
+      - name: Apply RDS (Cloud SQL)
         run: |
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
           cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=02-rds
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
-      - name: Apply GKE
+      - name: Apply GKE (Google Kubernetes Engine)
         run: |
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
           cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=03-gke
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
       - name: Apply Helm
         run: |
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
           cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=04-helm
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
       - name: Apply Domain
         run: |
+          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
           cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=05-domain
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
 
 
 
