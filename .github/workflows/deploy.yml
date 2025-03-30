@@ -64,7 +64,9 @@ jobs:
           cat ${HOME}/gcp-key.json
           export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
           cd ${{ env.dev_path }}
-          terragrunt apply -auto-approve --terragrunt-working-dir=00-gcs
+          terragrunt apply -auto-approve --terragrunt-working-dir=00-gcs << EOF
+          y
+          EOF
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
