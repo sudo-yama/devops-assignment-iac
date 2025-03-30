@@ -1,0 +1,88 @@
+name: Iac Pipeline - Deploy with Terragrunt on GCP
+
+on:
+  push:
+    branches:
+    - develop
+    - staging
+    - main
+  pull_request:
+    branches:
+    - develop
+    - staging
+    - main
+    - 
+env:
+  dev_path: "devops-assignment-iac/environment/01-dev/"
+
+jobs:
+  develop:
+    if: github.ref == 'ref/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+          
+      - name: Install Terragrunt
+        run: |
+          curl -sSL https://github.com/gruntwork-io/terragrunt/releases/download/v0.47.2/terragrunt_linux_amd64 -o terragrunt
+          chmod +x terragrunt
+          sudo mv terragrunt /usr/local/bin/
+
+      - name: Set up GCP authen
+        run: |
+          echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > "${HOME}/gcp-key.json"
+          gcloud auth activate-service-account --key-file="${HOME}/gcp-key.json"
+          gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+        
+      - name: Apply GCS (Bootstrap)
+        run: |
+          cd ${{ env.dev_path }}
+          terragrunt apply -auto-approve --terragrunt-working-dir=00-gcs
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
+      - name: Apply VPC
+        run: |
+          cd ${{ env.dev_path }}
+          terragrunt apply -auto-approve --terragrunt-working-dir=01-vpc
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
+      - name: Apply RDS
+        run: |
+          cd ${{ env.dev_path }}
+          terragrunt apply -auto-approve --terragrunt-working-dir=02-rds
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
+      - name: Apply GKE
+        run: |
+          cd ${{ env.dev_path }}
+          terragrunt apply -auto-approve --terragrunt-working-dir=03-gke
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
+      - name: Apply Helm
+        run: |
+          cd ${{ env.dev_path }}
+          terragrunt apply -auto-approve --terragrunt-working-dir=04-helm
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
+      - name: Apply Domain
+        run: |
+          cd ${{ env.dev_path }}
+          terragrunt apply -auto-approve --terragrunt-working-dir=05-domain
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+
+
+

@@ -31,10 +31,6 @@ terraform.tfvars
 .idea/
 *.iml
 
-# Ignore generated Kubernetes manifests
-*.yaml
-*.yml
-
 # Ignore cloud-specific files
 *.auto.tfvars
 terraform.tfstate.d/
