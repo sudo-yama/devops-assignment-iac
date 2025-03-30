@@ -11,13 +11,13 @@ on:
     - develop
     - staging
     - main
-    - 
+
 env:
   dev_path: "devops-assignment-iac/environment/01-dev/"
 
 jobs:
   develop:
-    if: github.ref == 'ref/heads/develop'
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
