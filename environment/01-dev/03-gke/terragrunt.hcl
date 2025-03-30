@@ -24,6 +24,6 @@ inputs = {
   cluster_name   = "gke"
   min_node       = 1
   max_node       = 3
-  machine_type   = "e2-small"
+  machine_type   = "e2-medium"
   node_disk_size = 50
 }
