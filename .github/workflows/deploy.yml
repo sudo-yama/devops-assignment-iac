@@ -100,10 +100,10 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
 
-      - name: Apply Domain
-        run: |
-          export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
-          cd ${{ env.dev_path }}
-          terragrunt apply -auto-approve --terragrunt-working-dir=05-domain
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
+      # - name: Apply Domain
+      #   run: |
+      #     export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
+      #     cd ${{ env.dev_path }}
+      #     terragrunt apply -auto-approve --terragrunt-working-dir=05-domain
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
