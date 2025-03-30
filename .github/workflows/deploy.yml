@@ -61,6 +61,7 @@ jobs:
       - name: Apply GCS (Bootstrap)
         run: |
           export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/gcp-key.json"
+          cd ${{ env.dev_path }}
           terragrunt apply -auto-approve --terragrunt-working-dir=00-gcs << EOF
           y
           EOF
