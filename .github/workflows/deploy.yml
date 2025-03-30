@@ -13,7 +13,7 @@ on:
     - main
 
 env:
-  dev_path: "devops-assignment-iac/environment/01-dev/"
+  dev_path: "environment/01-dev/"
 
 jobs:
   develop:
@@ -50,7 +50,12 @@ jobs:
         
       - name: Apply GCS (Bootstrap)
         run: |
+          cd devops-assignment-iac
+          ls -la 
+          pwd
           cd ${{ env.dev_path }}
+          ls -la
+          pwd
           terragrunt apply -auto-approve --terragrunt-working-dir=00-gcs
         env:
           GOOGLE_APPLICATION_CREDENTIALS: "${HOME}/gcp-key.json"
